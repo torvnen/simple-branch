@@ -2,6 +2,12 @@
   "name": "simple-branch",
   "version": "0.1.0",
   "private": true,
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "not IE_Mob 11",
+    "maintained node versions"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
