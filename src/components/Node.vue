@@ -29,7 +29,7 @@ export default {
     return {
       indentSize: 25,
       // Children of this. Initially empty.
-      nodes: Array(),
+      nodes: [],
       /* Indent level = amount of '.' characters in the level string.
        * If no '.' characters are found, default to 0 ([].length) */
       indentLevel: (this.level.match(/[.]/) || []).length,
@@ -49,6 +49,11 @@ export default {
       // Prevent <a> from setting window location
       event.preventDefault();
 
+      // Sanity check: nodes prop is mutable
+      if (!Array.isArray(this.nodes)) {
+        // Fault tolerance: begin with an empty collection if nodes is not array.
+        this.nodes = [];
+      }      
       this.nodes.push({
         level: this.level + "." + (this.nodes.length + 1),
       });
@@ -60,6 +65,9 @@ export default {
       // Sanity check: nodes prop is mutable
       if (Array.isArray(this.nodes)) {
         this.nodes.pop();
+      } else {
+        // Fault tolerance: reset the situation
+        this.nodes = [];
       }
     },
   },
